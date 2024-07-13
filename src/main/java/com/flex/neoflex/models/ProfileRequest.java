@@ -1,8 +1,5 @@
 package com.flex.neoflex.models;
 
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.web.bind.annotation.RequestParam;
-
 public record ProfileRequest(
 		String name,
 		Integer bank_id,

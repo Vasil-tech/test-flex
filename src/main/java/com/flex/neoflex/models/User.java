@@ -26,6 +26,6 @@ public class User {
 	private String address_reg;
 	private String address_fact;
 
-	public User(int id, String name, String lastname, int email) {
+	public User(String name, String lastname, String patronymic, String email) {
 	}
 }

@@ -1,8 +1,8 @@
 package com.flex.neoflex.services;
 
 import com.flex.neoflex.models.User;
-import com.flex.neoflex.repositories.ProfileService;
 import com.flex.neoflex.repositories.UserRepository;
+import com.flex.neoflex.repositories.UserService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,7 +12,10 @@ import java.util.Optional;
 
 @Primary
 @Service
-public class UserServiceImpl implements ProfileService {
+public class UserServiceImpl implements UserService {
+//	@Autowired
+//	private UserRepository userRepository;
+
 	private static final String SQL_INSERT_USER =
 			"insert into usr (bank_id, lastname, name, patronymic, birth, passport, city, phone_number, email, address_reg, address_fact) values (:bank_id, :lastname, :name, :patronymic, :birth, :passport, :city, :phone_number, :email, :address_reg, :address_fact)";
 
@@ -40,6 +43,16 @@ public class UserServiceImpl implements ProfileService {
 		params.addValue("address_reg", address_reg);
 		params.addValue("address_fact", address_fact);
 		jdbcTemplate.update(SQL_INSERT_USER, params);
+	}
+
+	@Override
+	public Optional<User> getUser(String name) {
+		if (!name.equals("")) {
+			return userRepository.findByName(name);
+		}
+		else {
+			return userRepository.findByName(name);
+		}
 	}
 
 	@Override

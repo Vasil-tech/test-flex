@@ -7,12 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User, Long>
-//		extends JpaRepository<User, Long>
-	{
+public interface UserRepository extends CrudRepository<User, Long>	{
 	Optional<User> getUserById(int id);
-	List<User> findByName (String name);
-	List<User> findByLastname (String lastname);
-	List<User> findByPatronymic (String patronymic);
-	List<User> findByEmail (String email);
+	Optional<User> findByName (String name);
+	Optional<User> findByLastname (String lastname);
+	Optional<User> findByPatronymic (String patronymic);
+	Optional<User> findByEmail (String email);
 }
