@@ -9,7 +9,5 @@ public interface UserService {
 					   Integer birth, String passport, String city, String phone_number, String email,
 					   String address_reg, String address_fact);
 
-	Optional<User> getUser(String name);
-
-	Optional<User> getProfile(int personId);
+	Optional<User> getUser(String name, String lastname, String patronymic, String email);
 }

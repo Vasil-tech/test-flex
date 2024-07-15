@@ -13,18 +13,21 @@ import java.util.Optional;
 @Primary
 @Service
 public class UserServiceImpl implements UserService {
-//	@Autowired
-//	private UserRepository userRepository;
 
 	private static final String SQL_INSERT_USER =
 			"insert into usr (bank_id, lastname, name, patronymic, birth, passport, city, phone_number, email, address_reg, address_fact) values (:bank_id, :lastname, :name, :patronymic, :birth, :passport, :city, :phone_number, :email, :address_reg, :address_fact)";
 
+	private static final String SQL_GET_PROFILE_BY_NAME =
+			"select name, lastname, patronymic, email from usr where name = :name";
+
 	private final UserRepository userRepository;
 	private final NamedParameterJdbcTemplate jdbcTemplate;
+	private final ProfileMapper profileMapper;
 
-	public UserServiceImpl(UserRepository userRepository, NamedParameterJdbcTemplate jdbcTemplate) {
+	public UserServiceImpl(UserRepository userRepository, NamedParameterJdbcTemplate jdbcTemplate, ProfileMapper profileMapper) {
 		this.userRepository = userRepository;
 		this.jdbcTemplate = jdbcTemplate;
+		this.profileMapper = profileMapper;
 	}
 
 	@Override
@@ -44,19 +47,47 @@ public class UserServiceImpl implements UserService {
 		params.addValue("address_fact", address_fact);
 		jdbcTemplate.update(SQL_INSERT_USER, params);
 	}
-
 	@Override
-	public Optional<User> getUser(String name) {
+	public Optional<User> getUser(String name, String lastname, String patronymic, String email) {
+		var params = new MapSqlParameterSource();
+		params.addValue("name", name);
+		params.addValue("lastname", lastname);
+		params.addValue("patronymic", patronymic);
+		params.addValue("email", email);
+//		var Johnny = jdbcTemplate.query(SQL_GET_PROFILE_BY_NAME, params, profileMapper)
+//				.stream()
+//				.findFirst();
 		if (!name.equals("")) {
 			return userRepository.findByName(name);
+		} else if (!lastname.equals("")) {
+			return userRepository.findByLastname(lastname);
+		} else if (!patronymic.equals("")) {
+			return userRepository.findByPatronymic(patronymic);
+		} else if (!email.equals("")) {
+			return userRepository.findByEmail(email);
 		}
-		else {
-			return userRepository.findByName(name);
+		else{
+			return null;
 		}
 	}
-
-	@Override
-	public Optional<User> getProfile(int personId) {
-		return userRepository.getUserById(personId);
-	}
+//	@Override
+//	public Optional<User> getUser(String name, String lastname, String patronymic, String email) {
+////		Iterable<User> name_ = userRepository.findByName(name);
+////		Iterable<User> lastname_ = userRepository.findByLastname(lastname);
+////		Iterable<User> patronymic_ = userRepository.findByPatronymic(patronymic);
+////		Iterable<User> email_ = userRepository.findByEmail(email);
+//
+//		if (!name.equals("")) {
+//			return userRepository.findByName(name);
+//		} else if (!lastname.equals("")) {
+//			return userRepository.findByLastname(lastname);
+//		} else if (!patronymic.equals("")) {
+//			return userRepository.findByPatronymic(patronymic);
+//		} else if (!email.equals("")) {
+//			return userRepository.findByEmail(email);
+//		}
+//		else{
+//			return null;
+//		}
+//	}
 }

@@ -1,11 +1,10 @@
 package com.flex.neoflex.controllers;
 
+import com.flex.neoflex.models.ProfileRequest;
 import com.flex.neoflex.models.User;
 import com.flex.neoflex.repositories.UserRepository;
-import com.flex.neoflex.services.ProfileRepositoryImpl;
 import com.flex.neoflex.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -17,16 +16,20 @@ public class AdminController {
 	private UserRepository userRepository;
 
 	@Autowired
-	private ProfileRepositoryImpl userService;
+	private UserServiceImpl userService;
 
-//	@GetMapping(value = "/{name}")
-//	public Optional<User> getUser(@PathVariable String name) {
-//		return userRepository.findByName(name);
-//	}
+	@GetMapping(value = "/{id:\\d+}")
+	public Optional<User> getUser(@PathVariable int id) {
+		return userRepository.getUserById(id);
+	}
 
-	@GetMapping(value = "/{name}")
-	public Optional<User> getUserBy(@PathVariable String name)  {
-		return userService.getUser(name);
+	@PostMapping
+	public Optional<User> getUserBy(@RequestBody ProfileRequest request)  {
+		return userService.getUser(
+				request.name(),
+				request.lastname(),
+				request.patronymic(),
+				request.email());
 	}
 //	@Autowired
 //	private UserRepository userRepository;
