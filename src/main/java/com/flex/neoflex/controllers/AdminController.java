@@ -7,8 +7,6 @@ import com.flex.neoflex.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(value = "/user")
 public class AdminController {
@@ -19,44 +17,16 @@ public class AdminController {
 	private UserServiceImpl userService;
 
 	@GetMapping(value = "/{id:\\d+}")
-	public Optional<User> getUser(@PathVariable int id) {
+	public Iterable<User> getUser(@PathVariable int id) {
 		return userRepository.getUserById(id);
 	}
 
 	@PostMapping
-	public Optional<User> getUserBy(@RequestBody ProfileRequest request)  {
+	public Iterable<User> getUserBy(@RequestBody ProfileRequest request)  {
 		return userService.getUser(
 				request.name(),
 				request.lastname(),
 				request.patronymic(),
 				request.email());
 	}
-//	@Autowired
-//	private UserRepository userRepository;
-//
-//	@GetMapping
-//	public String showRegPage(Model model) {
-//		return "admin";
-//	}
-//
-//	@PostMapping
-//	public String filter(@RequestParam String name, @RequestParam String lastname,
-//						 @RequestParam String patronymic, @RequestParam String email, Model model) {
-//		Iterable<User> name_ = userRepository.findByName(name);
-//		Iterable<User> lastname_ = userRepository.findByLastname(lastname);
-//		Iterable<User> patronymic_ = userRepository.findByPatronymic(patronymic);
-//		Iterable<User> email_ = userRepository.findByEmail(email);
-//
-//		if (!name.equals("")) {
-//			model.addAttribute("user", name_);
-//		} else if (!lastname.equals("")) {
-//			model.addAttribute("user", lastname_);
-//		} else if (!patronymic.equals("")) {
-//			model.addAttribute("user", patronymic_);
-//		} else if (!email.equals("")) {
-//			model.addAttribute("user", email_);
-//		}
-//
-//		return "admin";
-//	}
 }

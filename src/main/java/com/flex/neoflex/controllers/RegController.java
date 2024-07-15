@@ -1,7 +1,6 @@
 package com.flex.neoflex.controllers;
 
 import com.flex.neoflex.models.ProfileRequest;
-import com.flex.neoflex.repositories.UserRepository;
 import com.flex.neoflex.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
