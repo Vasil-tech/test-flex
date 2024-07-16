@@ -8,4 +8,6 @@ public interface UserService {
 					   String address_reg, String address_fact);
 
 	Iterable<User> getUser(String name, String lastname, String patronymic, String email);
+
+	Iterable<User> getUserById(int id);
 }

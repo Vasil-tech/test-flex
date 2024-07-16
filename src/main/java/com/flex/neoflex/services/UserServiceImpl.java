@@ -59,4 +59,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+
+	@Override
+	public Iterable<User> getUserById(int id) {
+		return userRepository.findUserById(id);
+	}
 }
