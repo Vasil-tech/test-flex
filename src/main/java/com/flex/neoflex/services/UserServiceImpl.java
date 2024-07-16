@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
 		params.addValue("address_fact", address_fact);
 		jdbcTemplate.update(SQL_INSERT_USER, params);
 	}
+
 	@Override
 	public Iterable<User> getUser(String name, String lastname, String patronymic, String email) {
 		if (!StringUtils.isEmpty(name)) {

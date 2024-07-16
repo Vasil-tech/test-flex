@@ -24,7 +24,7 @@ public class RegistrationControllerTest {
 	private UserServiceImpl userService;
 
 	@Autowired
-	private MockMvc mockMvc;
+	private MockMvc mvc;
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -39,7 +39,7 @@ public class RegistrationControllerTest {
 				"\"birth\":12365, \"passport\": \"189273987213\", \"city\": \"city\", \"phone_number\": \"987123\", " +
 				"\"email\": \"test@test\",  \"address_reg\": \"test\", \"address_fact\": \"test\"}";
 
-		mockMvc.perform(MockMvcRequestBuilders
+		mvc.perform(MockMvcRequestBuilders
 						.post(uri)
 						.content(json)
 						.contentType(org.springframework.http.MediaType.APPLICATION_JSON))
