@@ -5,7 +5,7 @@ import com.flex.neoflex.models.User;
 import com.flex.neoflex.services.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestControllerAdvice
 @RequestMapping(value = "/user")
 public class AdminController {
 	private final UserServiceImpl userService;
@@ -21,10 +21,6 @@ public class AdminController {
 
 	@PostMapping
 	public Iterable<User> getUserBy(@RequestBody ProfileRequest request)  {
-		return userService.getUser(
-				request.name(),
-				request.lastname(),
-				request.patronymic(),
-				request.email());
+		return userService.getUser(request);
 	}
 }
