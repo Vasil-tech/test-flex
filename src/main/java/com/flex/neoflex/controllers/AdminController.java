@@ -5,7 +5,7 @@ import com.flex.neoflex.models.User;
 import com.flex.neoflex.services.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
-@RestControllerAdvice
+@RestController
 @RequestMapping(value = "/user")
 public class AdminController {
 	private final UserServiceImpl userService;

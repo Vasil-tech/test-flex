@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestControllerAdvice
+@RestController
 @RequestMapping(value = "/reg")
 public class RegController {
 	@Autowired
